@@ -20,8 +20,7 @@ body {
 /* Sparkle background */
 .sparkles {
     position: fixed;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     background:
         radial-gradient(3px 3px at 20% 30%, #fff, transparent),
         radial-gradient(2px 2px at 70% 60%, #fff, transparent),
@@ -38,26 +37,27 @@ body {
     to { background-position: 400px 400px; }
 }
 
-/* Container for card + button */
+/* Main container */
 .game-container {
     position: relative;
     z-index: 2;
+    flex: 1;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    flex: 1;
-    width: 100%;
 }
 
-
-/* Card styling */
+/* ===============================
+   CARD (DESKTOP / TABLET)
+================================= */
 .card {
     position: relative;
-    width: clamp(420px, 25vw, 260px);
-    height: clamp(650px, 45vh, 420px);
+    width: clamp(260px, 28vw, 420px);
+    height: clamp(420px, 55vh, 650px);
     border-radius: 20px;
-    padding: 3vh 3vw;
+    padding: 4vh 4vw;
     margin-bottom: 3vh;
     cursor: pointer;
     user-select: none;
@@ -67,7 +67,7 @@ body {
     align-items: center;
     justify-content: center;
 
-    transition: background 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.15s ease, box-shadow 0.3s ease;
 
     background: linear-gradient(135deg, #020617, #020617);
     border: 2px solid rgba(255,255,255,0.15);
@@ -101,50 +101,70 @@ body {
         inset 0 0 45px rgba(239, 68, 68, 0.15);
 }
 
-
+/* Icon */
 .card-icon {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: clamp(140px, 30%, 180px);
-    height: clamp(140px, 30%, 180px);
-    opacity: 0.88;
-    pointer-events: none;
+    inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-
-    z-index: 0; /* icon stays in background */
-}
-
-.card-text {
-    position: relative; /* relative so z-index works */
-    z-index: 1;         /* text always in front of icon */
-    font-size: clamp(18px, 2.5vw, 26px);
-    text-align: center;
-    line-height: 1.4;
-    margin-top: 3vh;
-    color: rgba(254, 202, 202, 0.35);
-    text-shadow: 0 0 5px rgba(0,0,0,0.6);
-}
-
-/* Card text per type */
-.card-dark .card-text {
-    color: rgba(254, 202, 202, 0.35);
-}
-
-.card-red .card-text {
-    color: rgba(254, 202, 202, 0.35);
-    text-shadow:
-        0 0 7px rgba(239, 68, 68, 0.5),
-        0 0 12px rgba(127, 29, 29, 0.7);
+    opacity: 0.18;
+    pointer-events: none;
+    z-index: 0;
 }
 
 .card-icon img {
-    width: 100%;
-    height: 100%;
+    width: 55%;
+    height: 55%;
     object-fit: contain;
     filter: brightness(1.8);
 }
 
+/* Text */
+.card-text {
+    position: relative;
+    z-index: 1;
+    font-size: clamp(1.2rem, 2.2vw, 1.6rem);
+    text-align: center;
+    line-height: 1.45;
+    color: rgba(254, 202, 202, 0.35);
+    text-shadow: 0 0 5px rgba(0,0,0,0.6);
+}
+
+/* ===============================
+   FULLSCREEN CARD ON PHONES
+   (iPhone 16 class)
+================================= */
+@media (max-width: 480px) {
+
+    body {
+        padding: 0;
+    }
+
+    .game-container {
+        width: 100vw;
+        height: 100svh; /* modern mobile safe height */
+        justify-content: center;
+    }
+
+    .card {
+        width: 100vw;
+        height: 100svh;
+        margin: 0;
+        border-radius: 0;
+        padding: 8vh 8vw;
+
+        box-shadow:
+            inset 0 0 80px rgba(0,0,0,0.6);
+    }
+
+    .card-icon img {
+        width: 70%;
+        height: 70%;
+    }
+
+    .card-text {
+        font-size: 1.6rem;
+        line-height: 1.5;
+    }
+}
