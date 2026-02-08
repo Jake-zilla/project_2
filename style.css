@@ -54,8 +54,8 @@ body {
 /* Card styling */
 .card {
     position: relative;
-    width: clamp(320px, 25vw, 260px);
-    height: clamp(450px, 45vh, 420px);
+    width: clamp(420px, 25vw, 260px);
+    height: clamp(650px, 45vh, 420px);
     border-radius: 20px;
     padding: 3vh 3vw;
     margin-bottom: 3vh;
@@ -147,3 +147,4 @@ body {
     object-fit: contain;
     filter: brightness(1.8);
 }
+
