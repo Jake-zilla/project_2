@@ -115,7 +115,7 @@ body {
     width: 65%;
     height: 65%;
     object-fit: contain;
-    opacity: 0.28;
+    opacity: 0.88;
     filter: brightness(2);
 }
 
@@ -152,6 +152,7 @@ body {
         font-size: clamp(24px, 5.8vw, 34px);
     }
 }
+
 
 
 
