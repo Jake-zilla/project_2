@@ -14,13 +14,14 @@ body {
     align-items: center;
     justify-content: flex-start;
     overflow: hidden;
-    padding: 2vh 4vw;
+    padding: 3vh 3vw;
 }
 
 /* Sparkle background */
 .sparkles {
     position: fixed;
-    inset: 0;
+    width: 100%;
+    height: 100%;
     background:
         radial-gradient(3px 3px at 20% 30%, #fff, transparent),
         radial-gradient(2px 2px at 70% 60%, #fff, transparent),
@@ -37,118 +38,112 @@ body {
     to { background-position: 400px 400px; }
 }
 
-/* Main container */
+/* Container for card + button */
 .game-container {
     position: relative;
     z-index: 2;
-    flex: 1;
-    width: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    flex: 1;
+    width: 100%;
 }
 
-/* Card */
+
+/* Card styling */
 .card {
     position: relative;
+    width: clamp(320px, 25vw, 260px);
+    height: clamp(450px, 45vh, 420px);
+    border-radius: 20px;
+    padding: 3vh 3vw;
+    margin-bottom: 3vh;
     cursor: pointer;
     user-select: none;
-
-    width: min(92vw, 520px);
-    height: min(82vh, 820px);
-
-    padding: 6vh 6vw;
-    border-radius: 26px;
 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+
     background: linear-gradient(135deg, #020617, #020617);
-    border: 2px solid rgba(255,255,255,0.18);
-
+    border: 2px solid rgba(255,255,255,0.15);
     box-shadow:
-        0 0 60px rgba(239, 68, 68, 0.35),
-        inset 0 0 60px rgba(255,255,255,0.06);
-
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+        0 0 35px rgba(56, 189, 248, 0.2),
+        inset 0 0 45px rgba(255,255,255,0.05);
 }
 
 .card:hover {
-    transform: scale(1.03);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow:
+        0 0 45px rgba(239, 68, 68, 0.45),
+        inset 0 0 45px rgba(255,255,255,0.06);
 }
 
 .card:active {
     transform: scale(0.97);
 }
 
-/* Card variants */
+/* Card types */
 .card-dark {
     background: linear-gradient(135deg, #020617, #020617);
+    border: 2px solid rgba(255,255,255,0.15);
 }
 
 .card-red {
     background: linear-gradient(135deg, #450a0a, #020617);
-    border-color: rgba(239, 68, 68, 0.55);
+    border: 2px solid rgba(239, 68, 68, 0.5);
     box-shadow:
-        0 0 70px rgba(239, 68, 68, 0.6),
-        inset 0 0 60px rgba(239, 68, 68, 0.18);
+        0 0 45px rgba(239, 68, 68, 0.5),
+        inset 0 0 45px rgba(239, 68, 68, 0.15);
 }
 
-/* Background SVG icon */
+
 .card-icon {
     position: absolute;
-    inset: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: clamp(140px, 30%, 180px);
+    height: clamp(140px, 30%, 180px);
+    opacity: 0.88;
+    pointer-events: none;
     display: flex;
     align-items: center;
     justify-content: center;
-    pointer-events: none;
-    z-index: 0;
+
+    z-index: 0; /* icon stays in background */
+}
+
+.card-text {
+    position: relative; /* relative so z-index works */
+    z-index: 1;         /* text always in front of icon */
+    font-size: clamp(18px, 2.5vw, 26px);
+    text-align: center;
+    line-height: 1.4;
+    margin-top: 3vh;
+    color: rgba(254, 202, 202, 0.35);
+    text-shadow: 0 0 5px rgba(0,0,0,0.6);
+}
+
+/* Card text per type */
+.card-dark .card-text {
+    color: rgba(254, 202, 202, 0.35);
+}
+
+.card-red .card-text {
+    color: rgba(254, 202, 202, 0.35);
+    text-shadow:
+        0 0 7px rgba(239, 68, 68, 0.5),
+        0 0 12px rgba(127, 29, 29, 0.7);
 }
 
 .card-icon img {
-    width: 70%;
-    height: 70%;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
-    opacity: 0.22;
-    filter: brightness(2.2);
-}
-
-/* Card text */
-.card-text {
-    position: relative;
-    z-index: 1;
-
-    font-size: clamp(22px, 4.5vw, 32px);
-    line-height: 1.45;
-    text-align: center;
-
-    color: rgba(254, 202, 202, 0.45);
-    text-shadow:
-        0 0 8px rgba(0,0,0,0.7),
-        0 0 18px rgba(239, 68, 68, 0.35);
-}
-
-/* Mobile dominance */
-@media (max-width: 768px) {
-    body {
-        padding: 1.5vh 3vw;
-    }
-
-    .card {
-        width: 96vw;
-        height: 88vh;
-        padding: 7vh 6vw;
-        border-radius: 22px;
-    }
-
-    .card-icon img {
-        width: 78%;
-        height: 78%;
-    }
-
-    .card-text {
-        font-size: clamp(24px, 6vw, 34px);
-    }
+    filter: brightness(1.8);
 }
