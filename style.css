@@ -52,7 +52,7 @@ body {
 .card {
     position: relative;
 
-    height: min(190vh, 760px);
+    height: min(250vh, 760px);
     aspect-ratio: 2.5 / 3.5;
     width: auto;
 
@@ -152,6 +152,7 @@ body {
         font-size: clamp(24px, 5.8vw, 34px);
     }
 }
+
 
 
 
