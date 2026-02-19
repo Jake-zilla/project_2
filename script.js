@@ -5,14 +5,14 @@ const defaultIcons = {
 
 const challenges = [
     // DARK
-    { text: "Have a makeout session", type: "dark", icon: "icons/sex icon.svg" },
-    { text: "Take a shot", type: "dark", icon: "icons/shot icon.svg" },
-    { text: "Get on your partner and start riding for 1 minute", type: "dark", icon: "icons/ride icon.svg" },
-    { text: "French kiss your partner", type: "dark", icon: "icons/lips icon.svg" },
-    { text: "Remove your partner's underwear with only your mouth", type: "dark", icon: "icons/question mark icon.svg" },
-    { text: "Place your hand in your partner's pants for a minute", type: "dark", icon: "icons/dog icon.svg" },
-    { text: "Give your partner head for 1 minute", type: "dark", icon: "icons/fire icon.svg" },
-    { text: "Have sex for only 3 minutes and you have to stop when the timer stops", type: "dark", icon: "icons/sex icon.svg" },
+    { text: "Kiss all over their neck for 30 seconds", type: "dark", icon: "icons/sex icon.svg" },
+    { text: "Take an ice cube and give your partner neck kisses with it", type: "dark", icon: "icons/shot icon.svg" },
+    { text: "Put an ice cube in your mouth, then kiss their body starting from chest down to their intimate zone", type: "dark", icon: "icons/ride icon.svg" },
+    { text: "Take a dirty photo together", type: "dark", icon: "icons/lips icon.svg" },
+    { text: "Put whip cream anywhere on your partner's body and eat it", type: "dark", icon: "icons/question mark icon.svg" },
+    { text: "Tie your partner up and blindfold them, then do whatever you want for 3 minutes", type: "dark", icon: "icons/dog icon.svg" },
+    { text: "Have a heavy makeout session on kitchen counter", type: "dark", icon: "icons/fire icon.svg" },
+    { text: "Do doggy style in the kitchen", type: "dark", icon: "icons/sex icon.svg" },
 
     // RED
     { text: "Have a makeout session", type: "red", icon: "icons/sex icon.svg" },
@@ -85,3 +85,4 @@ function applyChallenge(challenge) {
 
     iconEl.src = challenge.icon || defaultIcons[challenge.type];
 }
+
