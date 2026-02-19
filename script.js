@@ -86,3 +86,4 @@ function applyChallenge(challenge) {
     iconEl.src = challenge.icon || defaultIcons[challenge.type];
 }
 
+
