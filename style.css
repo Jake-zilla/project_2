@@ -40,7 +40,7 @@ body {
 .turn-counter {
     width: 100%;
     text-align: center;
-    font-size: 16px;
+    font-size: 26px;
     opacity: 0.8;
     padding: 6px 0;
     position: absolute;
@@ -222,3 +222,4 @@ body {
         font-size: clamp(24px, 5.8vw, 34px);
     }
 }
+
