@@ -1,61 +1,34 @@
-/* =========================
-   RESET
-========================= */
 * {
     box-sizing: border-box;
+    font-family: "Segoe UI", Tahoma, sans-serif;
     margin: 0;
     padding: 0;
-    font-family: "Segoe UI", Tahoma, sans-serif;
 }
 
-/* =========================
-   BASE LAYOUT
-========================= */
 body {
     background: black;
     color: #fecaca;
     min-height: 100vh;
     display: flex;
-    justify-content: center;
-    overflow: hidden;
-}
-
-/* =========================
-   GAME CONTAINER
-========================= */
-.game-container {
-    position: relative;
-    z-index: 2;
-
-    width: 100%;
-    max-width: 600px;
-    height: 100vh;
-
-    display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-
-    padding: 10px; /* small breathing room */
+    justify-content: flex-start;
+    overflow: hidden;
+    padding: 2vh 4vw;
 }
 
-/* =========================
-   SPARKLES
-========================= */
 .sparkles {
     position: fixed;
     inset: 0;
-    z-index: 0;
-    opacity: 0.45;
-
     background:
         radial-gradient(3px 3px at 20% 30%, #fff, transparent),
         radial-gradient(2px 2px at 70% 60%, #fff, transparent),
         radial-gradient(1.5px 1.5px at 40% 80%, #fff, transparent),
         radial-gradient(2px 2px at 90% 20%, #fff, transparent);
-
     background-size: 200px 200px;
+    opacity: 0.45;
     animation: drift 20s linear infinite;
+    z-index: 0;
 }
 
 @keyframes drift {
@@ -63,30 +36,42 @@ body {
     to { background-position: 400px 400px; }
 }
 
-/* =========================
-   TURN COUNTER
-========================= */
+/* Turn counter floating above card */
 .turn-counter {
     width: 100%;
     text-align: center;
     font-size: 16px;
     opacity: 0.8;
     padding: 6px 0;
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10; /* always on top */
 }
 
-/* =========================
-   CARD (FULL DOMINANCE)
-========================= */
+/* Container */
+.game-container {
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Card styling */
 .card {
     position: relative;
 
-    width: 100%;
-    height: calc(100vh - 100px); /* nearly full screen */
-    max-height: none;
+    height: min(250vh, 760px);
+    aspect-ratio: 2.5 / 3.5;
+    width: auto;
 
-    border-radius: 24px;
-    padding: 6vh 6vw;
-
+    border-radius: 22px;
+    padding: 5vh 4vw;
     cursor: pointer;
     user-select: none;
 
@@ -98,32 +83,38 @@ body {
     border: 2px solid rgba(255,255,255,0.15);
 
     box-shadow:
-        0 0 60px rgba(239, 68, 68, 0.4),
-        inset 0 0 70px rgba(255,255,255,0.06);
+        0 0 45px rgba(239, 68, 68, 0.35),
+        inset 0 0 55px rgba(255,255,255,0.06);
 
     transition: transform 0.25s ease, box-shadow 0.25s ease;
+    z-index: 1; /* below turn counter and control panel */
+}
+
+.card:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow:
+        0 0 65px rgba(239, 68, 68, 0.55),
+        inset 0 0 55px rgba(255,255,255,0.08);
 }
 
 .card:active {
-    transform: scale(0.98);
+    transform: scale(0.96);
 }
 
-/* Card Types */
+/* Card types */
 .card-dark {
     background: linear-gradient(135deg, #020617, #020617);
 }
 
 .card-red {
     background: linear-gradient(135deg, #450a0a, #020617);
-    border-color: rgba(239, 68, 68, 0.6);
+    border-color: rgba(239, 68, 68, 0.55);
     box-shadow:
-        0 0 80px rgba(239, 68, 68, 0.7),
-        inset 0 0 65px rgba(239, 68, 68, 0.2);
+        0 0 70px rgba(239, 68, 68, 0.6),
+        inset 0 0 55px rgba(239, 68, 68, 0.18);
 }
 
-/* =========================
-   CARD ICON
-========================= */
+/* Background icon */
 .card-icon {
     position: absolute;
     inset: 0;
@@ -135,39 +126,41 @@ body {
 }
 
 .card-icon img {
-    width: 70%;
-    height: 70%;
+    width: 65%;
+    height: 65%;
     object-fit: contain;
-    opacity: 0.90;
+    opacity: 0.88;
     filter: brightness(2);
 }
 
-/* =========================
-   CARD TEXT
-========================= */
+/* Card text */
 .card-text {
     position: relative;
     z-index: 1;
 
-    font-size: clamp(24px, 6vw, 36px);
+    font-size: clamp(22px, 3.2vw, 30px);
+    line-height: 1.45;
     text-align: center;
-    line-height: 1.4;
 
-    color: rgba(254, 202, 202, 0.5);
+    color: rgba(254, 202, 202, 0.45);
     text-shadow:
-        0 0 10px rgba(0,0,0,0.7),
-        0 0 20px rgba(239, 68, 68, 0.35);
+        0 0 6px rgba(0,0,0,0.7),
+        0 0 16px rgba(239, 68, 68, 0.35);
 }
 
-/* =========================
-   CONTROL PANEL
-========================= */
+/* Control panel floating above card */
 .control-panel {
     width: 100%;
+    max-width: 72%;
     background: rgba(10,10,10,0.95);
     border-radius: 18px 18px 0 0;
     padding: 16px;
     border-top: 1px solid rgba(255,255,255,0.15);
+    position: absolute;
+    bottom: 12px; /* floating near bottom of screen */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 11; /* above everything else */
 }
 
 .control-panel h3 {
@@ -207,37 +200,25 @@ body {
     overflow-y: auto;
 }
 
-/* =========================
-   UTILITIES
-========================= */
+/* Utilities */
 .hidden {
     display: none;
 }
 
-/* =========================
-   DESKTOP REFINEMENT
-========================= */
-@media (min-width: 768px) {
-
-    .game-container {
-        justify-content: center;
-        gap: 20px;
-    }
-
+/* Mobile dominance */
+@media (max-width: 768px) {
     .card {
-        height: 85vh;
-        max-width: 460px;
+        height: 106vh;
+        padding: 6vh 6vw;
+        border-radius: 20px;
     }
 
-    .turn-counter {
-        position: absolute;
-        top: 20px;
-        left: 20px;
-        width: auto;
+    .card-icon img {
+        width: 72%;
+        height: 72%;
     }
 
-    .control-panel {
-        max-width: 460px;
-        border-radius: 18px;
+    .card-text {
+        font-size: clamp(24px, 5.8vw, 34px);
     }
 }
