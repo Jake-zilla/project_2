@@ -1,3 +1,4 @@
+<!--
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,5 +22,50 @@
         </div>
         
     <script src="script.js"></script>
+</body>
+</html>
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Challenge Lottery</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="sparkles"></div>
+
+<div class="game-container">
+
+    <div class="turn-counter">
+        Turn: <span id="turnNumber">0</span>
+    </div>
+
+    <div class="card-container">
+        <div id="card" class="card card-dark">
+            <div class="card-icon">
+                <img id="icon" src="icons/18+ icon.svg" alt="">
+            </div>
+            <div class="card-text">Start the game</div>
+        </div>
+    </div>
+
+    <!-- Scheduler Panel -->
+<div class="control-panel hidden">
+
+        <select id="challengeSelect"></select>
+
+        <input type="number" id="turnInput" placeholder="Choose a turn" min="1">
+
+        <button id="scheduleBtn">Confirm the challenge</button>
+
+        <div id="scheduledList"></div>
+    </div>
+
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
