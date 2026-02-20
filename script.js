@@ -90,6 +90,9 @@ scheduleBtn.addEventListener("click", () => {
     rareActive = false;
     turnInput.value = "";
 
+    // Reset select to default after submission
+    challengeSelect.selectedIndex = 0;
+
     // Instantly replace rare card with a normal challenge
     const instantChallenge = getRandomChallenge();
     applyChallenge(instantChallenge);
@@ -131,6 +134,9 @@ card.addEventListener("click", () => {
                 finalChallenge = rareCard;
                 rareActive = true;
                 controlPanel.classList.remove("hidden");
+
+                // Reset select to default when rare card appears
+                challengeSelect.selectedIndex = 0;
             }
             else {
                 finalChallenge = getRandomChallenge();
