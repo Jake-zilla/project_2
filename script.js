@@ -25,6 +25,15 @@ const challenges = [
     { text: "Have sex for only 3 minutes and you have to stop when the timer stops", type: "red", icon: "icons/sex icon.svg" }
 ];
 
+/* Rare Card */
+const rareCard = {
+    text: "Pick a card for your partner",
+    type: "red",
+    icon: "icons/fire icon.svg"
+};
+
+const RARE_CHANCE = 0.090;
+
 // =======================
 // ELEMENTS
 // =======================
@@ -32,19 +41,68 @@ const challenges = [
 const card = document.getElementById("card");
 const cardText = document.querySelector(".card-text");
 const iconEl = document.getElementById("icon");
+const turnDisplay = document.getElementById("turnNumber");
+
+const challengeSelect = document.getElementById("challengeSelect");
+const turnInput = document.getElementById("turnInput");
+const scheduleBtn = document.getElementById("scheduleBtn");
+const scheduledList = document.getElementById("scheduledList");
+const controlPanel = document.querySelector(".control-panel");
 
 // =======================
 // STATE
 // =======================
 
 let isShuffling = false;
+let turnCount = 0;
+let scheduledTurns = {};
+let rareActive = false;
 
 // =======================
-// EVENT LISTENER
+// INIT SELECT
+// =======================
+
+challenges.forEach((c, index) => {
+    const option = document.createElement("option");
+    option.value = index;
+    option.textContent = c.text;
+    challengeSelect.appendChild(option);
+});
+
+// =======================
+// RARE SUBMIT
+// =======================
+
+scheduleBtn.addEventListener("click", () => {
+    if (!rareActive) return;
+
+    const turn = parseInt(turnInput.value);
+    const challengeIndex = challengeSelect.value;
+
+    if (!turn || turn <= turnCount) return;
+
+    // Schedule future challenge
+    scheduledTurns[turn] = challenges[challengeIndex];
+    renderScheduled();
+
+    // Close rare state
+    controlPanel.classList.add("hidden");
+    rareActive = false;
+    turnInput.value = "";
+
+    // Instantly replace rare card with a normal challenge
+    const instantChallenge = getRandomChallenge();
+    applyChallenge(instantChallenge);
+});
+
+// =======================
+// MAIN CLICK
 // =======================
 
 card.addEventListener("click", () => {
-    if (isShuffling) return;
+
+    // 🚫 Block click if rare is active and not submitted
+    if (isShuffling || rareActive) return;
 
     isShuffling = true;
 
@@ -53,24 +111,39 @@ card.addEventListener("click", () => {
     const speed = 80;
 
     const animation = setInterval(() => {
-        const tempChallenge = getRandomChallenge();
-        applyChallenge(tempChallenge);
-
+        applyChallenge(getRandomChallenge());
         elapsed += speed;
 
         if (elapsed >= duration) {
             clearInterval(animation);
 
-            const finalChallenge = getRandomChallenge();
-            applyChallenge(finalChallenge);
+            turnCount++;
+            turnDisplay.textContent = turnCount;
 
+            let finalChallenge;
+
+            if (scheduledTurns[turnCount]) {
+                finalChallenge = scheduledTurns[turnCount];
+                delete scheduledTurns[turnCount];
+                renderScheduled();
+            }
+            else if (Math.random() < RARE_CHANCE) {
+                finalChallenge = rareCard;
+                rareActive = true;
+                controlPanel.classList.remove("hidden");
+            }
+            else {
+                finalChallenge = getRandomChallenge();
+            }
+
+            applyChallenge(finalChallenge);
             isShuffling = false;
         }
     }, speed);
 });
 
 // =======================
-// FUNCTIONS
+// HELPERS
 // =======================
 
 function getRandomChallenge() {
@@ -86,4 +159,12 @@ function applyChallenge(challenge) {
     iconEl.src = challenge.icon || defaultIcons[challenge.type];
 }
 
+function renderScheduled() {
+    scheduledList.innerHTML = "";
 
+    Object.keys(scheduledTurns).forEach(turn => {
+        const div = document.createElement("div");
+        div.textContent = `Turn ${turn}: ${scheduledTurns[turn].text}`;
+        scheduledList.appendChild(div);
+    });
+}
