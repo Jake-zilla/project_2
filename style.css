@@ -42,7 +42,7 @@ body {
     text-align: center;
     font-size: 26px;
     opacity: 0.8;
-    padding: 6px 0;
+    padding: 2px 0;
     position: absolute;
     top: 12px;
     left: 50%;
@@ -222,4 +222,3 @@ body {
         font-size: clamp(24px, 5.8vw, 34px);
     }
 }
-
