@@ -1,35 +1,61 @@
+/* =========================
+   RESET
+========================= */
 * {
     box-sizing: border-box;
-    font-family: "Segoe UI", Tahoma, sans-serif;
     margin: 0;
     padding: 0;
+    font-family: "Segoe UI", Tahoma, sans-serif;
 }
 
+/* =========================
+   BASE LAYOUT
+========================= */
 body {
     background: black;
     color: #fecaca;
     min-height: 100vh;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     overflow: hidden;
-    padding: 2vh 4vw;
 }
 
-/* Sparkle background */
+/* =========================
+   GAME CONTAINER
+========================= */
+.game-container {
+    position: relative;
+    z-index: 2;
+
+    width: 100%;
+    max-width: 600px;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 10px; /* small breathing room */
+}
+
+/* =========================
+   SPARKLES
+========================= */
 .sparkles {
     position: fixed;
     inset: 0;
+    z-index: 0;
+    opacity: 0.45;
+
     background:
         radial-gradient(3px 3px at 20% 30%, #fff, transparent),
         radial-gradient(2px 2px at 70% 60%, #fff, transparent),
         radial-gradient(1.5px 1.5px at 40% 80%, #fff, transparent),
         radial-gradient(2px 2px at 90% 20%, #fff, transparent);
+
     background-size: 200px 200px;
-    opacity: 0.45;
     animation: drift 20s linear infinite;
-    z-index: 0;
 }
 
 @keyframes drift {
@@ -37,70 +63,67 @@ body {
     to { background-position: 400px 400px; }
 }
 
-/* Container */
-.game-container {
-    position: relative;
-    z-index: 2;
-    flex: 1;
+/* =========================
+   TURN COUNTER
+========================= */
+.turn-counter {
     width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    text-align: center;
+    font-size: 16px;
+    opacity: 0.8;
+    padding: 6px 0;
 }
 
-/* Card styling */
+/* =========================
+   CARD (FULL DOMINANCE)
+========================= */
 .card {
     position: relative;
 
-    height: min(250vh, 760px);
-    aspect-ratio: 2.5 / 3.5;
-    width: auto;
+    width: 100%;
+    height: calc(100vh - 100px); /* nearly full screen */
+    max-height: none;
 
-    border-radius: 22px;
-    padding: 5vh 4vw;
+    border-radius: 24px;
+    padding: 6vh 6vw;
+
     cursor: pointer;
     user-select: none;
 
     display: flex;
     align-items: center;
-    justify-content: center; /* TRUE vertical centering */
+    justify-content: center;
 
     background: linear-gradient(135deg, #020617, #020617);
     border: 2px solid rgba(255,255,255,0.15);
 
     box-shadow:
-        0 0 45px rgba(239, 68, 68, 0.35),
-        inset 0 0 55px rgba(255,255,255,0.06);
+        0 0 60px rgba(239, 68, 68, 0.4),
+        inset 0 0 70px rgba(255,255,255,0.06);
 
     transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-
-.card:hover {
-    transform: translateY(-6px) scale(1.03);
-    box-shadow:
-        0 0 65px rgba(239, 68, 68, 0.55),
-        inset 0 0 55px rgba(255,255,255,0.08);
-}
-
 .card:active {
-    transform: scale(0.96);
+    transform: scale(0.98);
 }
 
-/* Card types */
+/* Card Types */
 .card-dark {
     background: linear-gradient(135deg, #020617, #020617);
 }
 
 .card-red {
     background: linear-gradient(135deg, #450a0a, #020617);
-    border-color: rgba(239, 68, 68, 0.55);
+    border-color: rgba(239, 68, 68, 0.6);
     box-shadow:
-        0 0 70px rgba(239, 68, 68, 0.6),
-        inset 0 0 55px rgba(239, 68, 68, 0.18);
+        0 0 80px rgba(239, 68, 68, 0.7),
+        inset 0 0 65px rgba(239, 68, 68, 0.2);
 }
 
-/* Background icon */
+/* =========================
+   CARD ICON
+========================= */
 .card-icon {
     position: absolute;
     inset: 0;
@@ -112,48 +135,109 @@ body {
 }
 
 .card-icon img {
-    width: 65%;
-    height: 65%;
+    width: 70%;
+    height: 70%;
     object-fit: contain;
-    opacity: 0.88;
+    opacity: 0.90;
     filter: brightness(2);
 }
 
-/* Card text */
+/* =========================
+   CARD TEXT
+========================= */
 .card-text {
     position: relative;
     z-index: 1;
 
-    font-size: clamp(22px, 3.2vw, 30px);
-    line-height: 1.45;
+    font-size: clamp(24px, 6vw, 36px);
     text-align: center;
+    line-height: 1.4;
 
-    color: rgba(254, 202, 202, 0.45);
+    color: rgba(254, 202, 202, 0.5);
     text-shadow:
-        0 0 6px rgba(0,0,0,0.7),
-        0 0 16px rgba(239, 68, 68, 0.35);
+        0 0 10px rgba(0,0,0,0.7),
+        0 0 20px rgba(239, 68, 68, 0.35);
 }
 
+/* =========================
+   CONTROL PANEL
+========================= */
+.control-panel {
+    width: 100%;
+    background: rgba(10,10,10,0.95);
+    border-radius: 18px 18px 0 0;
+    padding: 16px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+}
 
-/* Mobile dominance */
-@media (max-width: 768px) {
+.control-panel h3 {
+    font-size: 15px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.control-panel select,
+.control-panel input {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 12px;
+    background: #111;
+    color: #fff;
+    border: 1px solid #333;
+    border-radius: 10px;
+    font-size: 15px;
+}
+
+.control-panel button {
+    width: 100%;
+    padding: 12px;
+    background: crimson;
+    border: none;
+    color: white;
+    border-radius: 10px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+#scheduledList {
+    margin-top: 10px;
+    font-size: 13px;
+    opacity: 0.85;
+    max-height: 80px;
+    overflow-y: auto;
+}
+
+/* =========================
+   UTILITIES
+========================= */
+.hidden {
+    display: none;
+}
+
+/* =========================
+   DESKTOP REFINEMENT
+========================= */
+@media (min-width: 768px) {
+
+    .game-container {
+        justify-content: center;
+        gap: 20px;
+    }
+
     .card {
-        height: 106vh;
-        padding: 6vh 6vw;
-        border-radius: 20px;
+        height: 85vh;
+        max-width: 460px;
     }
 
-    .card-icon img {
-        width: 72%;
-        height: 72%;
+    .turn-counter {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        width: auto;
     }
 
-    .card-text {
-        font-size: clamp(24px, 5.8vw, 34px);
+    .control-panel {
+        max-width: 460px;
+        border-radius: 18px;
     }
 }
-
-
-
-
-
